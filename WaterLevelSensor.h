@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Jure Kobal.
+ * Copyright (c) 2020 Jure Kobal.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -23,14 +23,16 @@ class WaterLevelSensor {
   public:
   /*
    * Class takes two input parameters.
-   * sPin - input pin for detecting of low level of water in the tanki
+   * slPin - input pin for detecting of low level of water in the tank
+   * shPin - input pin for detecting of high level of water in the tank
    * lPin - output pin for low level status LED
    */
-    WaterLevelSensor(byte sPin, byte lPin);
+    WaterLevelSensor(byte slPin, byte shPin, byte lPin);
     bool containsWater();
   private:
     byte ledPin;
-    byte sensorPin; 
+    byte sensorLowPin;
+    byte sensorHighPin;
 };
 
 #endif

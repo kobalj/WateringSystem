@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Jure Kobal.
+ * Copyright (c) 2020 Jure Kobal.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -40,7 +40,7 @@ WaterPump wp(7, 6);
  * WaterLevelSensor for detecting availability of water 
  * Pin 9 is sensor pin and pin 5 is water level status LED
  */
-WaterLevelSensor wls(9, 5);
+WaterLevelSensor wls(9, 10, 5);
 
 /*
  * HumiditySensor for detectng humidity level of the soil

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Jure Kobal.
+ * Copyright (c) 2020 Jure Kobal.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,11 +18,19 @@
 #include "HumiditySensor.h"
 
 HumiditySensor::HumiditySensor(byte sPin, byte vPin, byte lPin) {
-  
+  sensorPin = sPin;
+  vccPin = vPin;
+  pinMode(vccPin, OUTPUT);
+  digitalWrite(vccPin, LOW);
+  ledPin = lPin;
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, LOW);
 }
 
 
 bool HumiditySensor::isDry() {
+  
+  
   return false;
 }
 
@@ -30,3 +38,10 @@ bool HumiditySensor::isHumid() {
   return true;  
 }
 
+int HumiditySensor::readValue() {
+  digitalWrite(vccPin, HIGH);
+  delay(1000);
+  int value = analogRead(sensorPin);
+  digitalWrite(vccPin, LOW);
+  return value;
+}

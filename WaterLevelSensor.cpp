@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Jure Kobal.
+ * Copyright (c) 2020 Jure Kobal.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,9 +17,12 @@
 #include "Arduino.h"
 #include "WaterLevelSensor.h"
 
-WaterLevelSensor::WaterLevelSensor(byte sPin, byte lPin) {
-  sensorPin = sPin;
-  pinMode(sensorPin, INPUT);
+WaterLevelSensor::WaterLevelSensor(byte slPin, byte shPin, byte lPin) {
+  sensorLowPin = slPin;
+  sensorHighPin = shPin;
+  
+  pinMode(sensorLowPin, INPUT);
+  pinMode(sensorHighPin, INPUT);
   
   ledPin = lPin;
   pinMode(ledPin, OUTPUT);
@@ -27,12 +30,13 @@ WaterLevelSensor::WaterLevelSensor(byte sPin, byte lPin) {
 }
 
 bool WaterLevelSensor::containsWater() {
-  int val = digitalRead(sensorPin);
+  int valLow = digitalRead(sensorLowPin);
+  int valHigh = digitalRead(sensorHighPin);
 
-  if (val == 0) {
+  if (valLow == 0) {
     digitalWrite(ledPin, HIGH);
     return false; 
-  } else {
+  } else if (valLow == 1 || valHigh == 1) {
     digitalWrite(ledPin, LOW);
     return true;  
   } 
